@@ -1,0 +1,35 @@
+package com.example.appbanhang.model;
+
+import java.util.List;
+
+public class SanPhamMoiModel {
+    boolean success;
+    String message; // Chỉnh sửa massage thành message cho đúng ngữ pháp
+
+    List<SanPhamMoi> result;
+
+    // Đổi phương thức thành không tĩnh
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<SanPhamMoi> getResult() {
+        return result;
+    }
+
+    public void setResult(List<SanPhamMoi> result) {
+        this.result = result;
+    }
+}

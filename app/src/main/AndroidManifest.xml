@@ -2,13 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ExtraText">
-    <uses-permission android:name="android.permission.INTERNET"/> /* Cấp quyền sữ dụng internet*/
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppBanHang"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.ThongTinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LapTopActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DienThoaiActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">

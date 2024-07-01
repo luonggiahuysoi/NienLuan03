@@ -1,6 +1,7 @@
 package com.example.appbanhang.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,21 +18,21 @@ import android.widget.ViewFlipper;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.LoaiSpAdapter;
+import com.example.appbanhang.adapter.SanPhamMoiAdapter;
 import com.example.appbanhang.model.LoaiSp;
+import com.example.appbanhang.model.SanPhamMoi;
+import com.example.appbanhang.model.SanPhamMoiModel;
 import com.example.appbanhang.retrofit.ApiBanHang;
 import com.example.appbanhang.retrofit.RetrofitClient;
 import com.example.appbanhang.untils.Untils;
-import com.google.android.material.datepicker.CompositeDateValidator;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     List<LoaiSp> mangloaisp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
+    List<SanPhamMoi> mangSpMoi;
+    SanPhamMoiAdapter spAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +76,71 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Kết nối thành công", Toast.LENGTH_SHORT).show();
             AcTionViewFlipper();
             getLoaiSanPham();
+            getSpMoi();
+            getEvenClick();
         } else {
             Toast.makeText(this, "Không có Internet vui lòng kết nối với mạng", Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    private void getEvenClick() {
+        listViewManHinhChinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(trangchu);
+                        break;
+
+                    case 1:
+                        Intent dienthoai = new Intent(getApplicationContext(), DienThoaiActivity.class);
+                        dienthoai.putExtra("loai", 1);
+                        startActivity(dienthoai);
+                        break;
+
+                    case 2:
+                        Intent laptop = new Intent(getApplicationContext(), LapTopActivity.class);
+                        startActivity(laptop);
+                        break;
+                }
+            }
+        });
+    }
+
+    private void getSpMoi() {
+        compositeDisposable.add(apiBanHang.getSpMoi()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        sanPhamMoiModel -> {
+                            if (sanPhamMoiModel.isSuccess()) {
+                                mangSpMoi = sanPhamMoiModel.getResult();
+                                spAdapter = new SanPhamMoiAdapter(getApplicationContext(), mangSpMoi);
+                                recyclerViewManHinhChinh.setAdapter(spAdapter);
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(getApplicationContext(), "Không kết nối được với server: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                ));
+    }
+
     private void AnhXa() {
         toolbar = findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper = findViewById(R.id.viewflipper);
         recyclerViewManHinhChinh = findViewById(R.id.recyclerview);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         listViewManHinhChinh = findViewById(R.id.listviewmanhinhchinh);
+        recyclerViewManHinhChinh.setLayoutManager(layoutManager);
+        recyclerViewManHinhChinh.setHasFixedSize(true);
         navigationView = findViewById(R.id.navigationview);
         drawerLayout = findViewById(R.id.drawerlayout);
         //khoi tao list
         mangloaisp = new ArrayList<>();
+        mangSpMoi = new ArrayList<SanPhamMoi>();
+
 
 
 
@@ -172,4 +228,6 @@ public class MainActivity extends AppCompatActivity {
         compositeDisposable.clear();
         super.onDestroy();
     }
+
+
 }
