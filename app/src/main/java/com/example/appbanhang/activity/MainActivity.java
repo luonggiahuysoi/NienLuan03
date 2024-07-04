@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 2:
-                        Intent laptop = new Intent(getApplicationContext(), LapTopActivity.class);
+                        Intent laptop = new Intent(getApplicationContext(), DienThoaiActivity.class);
+                        laptop.putExtra("loai", 2);
                         startActivity(laptop);
                         break;
                 }
@@ -140,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
         //khoi tao list
         mangloaisp = new ArrayList<>();
         mangSpMoi = new ArrayList<SanPhamMoi>();
+
+        if (Untils.manggiohang == null){
+            Untils.manggiohang = new ArrayList<>();
+        }
 
 
 

@@ -56,6 +56,8 @@ dependencies {
 
     implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
 
+    implementation("com.nex3z:notification-badge:1.0.2")
+
 
 
 
