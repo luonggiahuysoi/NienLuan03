@@ -17,7 +17,7 @@ import com.example.appbanhang.R;
 import com.example.appbanhang.model.GioHang;
 import com.example.appbanhang.model.SanPhamMoi;
 import com.example.appbanhang.untils.Untils;
-import com.nex3z.notificationbadge.NotificationBadge;
+//import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.DecimalFormat;
 
@@ -31,7 +31,7 @@ public class ChiTietActivity extends AppCompatActivity {
 
     SanPhamMoi sanPhamMoi;
 
-    NotificationBadge badge;
+//    NotificationBadge badge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class ChiTietActivity extends AppCompatActivity {
 
         }
 
-        badge.setText(String.valueOf(Untils.manggiohang.size()));
+//        badge.setText(String.valueOf(Untils.manggiohang.size()));
     }
 
     private void initData() {
@@ -126,6 +126,6 @@ public class ChiTietActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         imghinhanh = findViewById(R.id.imagechitiet);
         toolbar = findViewById(R.id.toolbar);
-        badge = findViewById(R.id.menu_sl);
+//        badge = findViewById(R.id.menu_sl);
     }
 }

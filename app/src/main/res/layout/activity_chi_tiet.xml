@@ -22,11 +22,11 @@
             android:layout_height="?attr/actionBarSize">
 
 <!--            hien so luong sp-->
-            <com.nex3z.notificationbadge.NotificationBadge
-                android:id="@+id/menu_sl"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="top|right"/>
+<!--            <com.nex3z.notificationbadge.NotificationBadge-->
+<!--                android:id="@+id/menu_sl"-->
+<!--                android:layout_width="28dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:layout_gravity="top|right"/>-->
 
             <ImageView
                 android:layout_marginTop="15dp"
